@@ -1,0 +1,21 @@
+<main class="login-page">
+  <section class="login-card">
+    <div class="brand">ARENA<span>•</span>GO</div>
+    <p class="eyebrow">Seu jogo começa aqui</p>
+    <h1>Entre na torcida</h1>
+
+    <form (ngSubmit)="entrar()">
+      <label for="email">E-mail</label>
+      <input id="email" name="email" [(ngModel)]="email" type="email" autocomplete="username" />
+
+      <label for="password">Senha</label>
+      <input id="password" name="password" [(ngModel)]="password" type="password" autocomplete="current-password" />
+
+      <p class="error" role="alert" *ngIf="error()">{{ error() }}</p>
+
+      <button type="submit">Entrar e ver jogos</button>
+    </form>
+
+    <p class="hint">Acesso demonstrativo: <strong>123456</strong></p>
+  </section>
+</main>

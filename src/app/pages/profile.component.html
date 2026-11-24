@@ -1,0 +1,84 @@
+<main class="profile-page">
+  <nav>
+    <div class="brand">ARENA<span>•</span>GO</div>
+    <button class="logout" type="button" (click)="sair()">Sair</button>
+  </nav>
+
+  <section class="profile-card">
+    <header>
+      <div>
+        <p class="eyebrow">Ingressos disponíveis</p>
+        <h1 *ngIf="auth.profile(); else loading">Olá, {{ auth.profile()?.name }}</h1>
+        <ng-template #loading><h1>Olá, Emily</h1></ng-template>
+      </div>
+      <div class="fan-badge">TORCEDORA</div>
+    </header>
+
+    <div class="section-title">
+      <h2>Próximos jogos</h2>
+      <span>Escolha seu lugar na arquibancada</span>
+    </div>
+
+    <div class="game-grid">
+      <button
+        class="game-card"
+        type="button"
+        *ngFor="let game of games"
+        [class.selected]="selectedGame.id === game.id"
+        (click)="selectedGame = game; purchaseConfirmed.set(false)">
+        <time>{{ game.date }}</time>
+        <strong>{{ game.home }} <em>×</em> {{ game.away }}</strong>
+        <span>{{ game.stadium }}</span>
+        <b>R$ {{ game.price }}</b>
+      </button>
+    </div>
+
+    <div class="checkout">
+      <div>
+        <p class="eyebrow">Seu ingresso</p>
+        <h3>{{ selectedGame.home }} × {{ selectedGame.away }}</h3>
+        <span>{{ selectedGame.stadium }} • {{ selectedGame.date }}</span>
+      </div>
+      <label>Quantidade
+        <select [(ngModel)]="quantity" name="quantity">
+          <option [ngValue]="1">1 ingresso</option>
+          <option [ngValue]="2">2 ingressos</option>
+          <option [ngValue]="3">3 ingressos</option>
+          <option [ngValue]="4">4 ingressos</option>
+        </select>
+      </label>
+      <div class="total">
+        <span>Total</span>
+        <strong>R$ {{ total }}</strong>
+      </div>
+      <button class="buy" type="button" (click)="comprar()">Comprar agora</button>
+    </div>
+
+    <p class="success" role="status" *ngIf="purchaseConfirmed()">
+      Compra confirmada! Seus ingressos foram reservados.
+    </p>
+
+    <div class="divider"></div>
+
+    <h2>Entrega por CEP</h2>
+    <div class="search-row">
+      <input [(ngModel)]="cep" name="cep" maxlength="9" placeholder="00000-000" aria-label="CEP" />
+      <button type="button" (click)="buscarCep()" [disabled]="loadingCep()">
+        {{ loadingCep() ? 'Buscando...' : 'Buscar CEP' }}
+      </button>
+    </div>
+
+    <p class="cep-error" role="alert" *ngIf="cepErro()">{{ cepErro() }}</p>
+
+    <dl *ngIf="cepResult() as endereco">
+      <div><dt>Logradouro</dt><dd>{{ endereco.logradouro || 'Não informado' }}</dd></div>
+      <div><dt>Bairro</dt><dd>{{ endereco.bairro || 'Não informado' }}</dd></div>
+      <div><dt>Cidade</dt><dd>{{ endereco.localidade }} - {{ endereco.uf }}</dd></div>
+      <div><dt>CEP</dt><dd>{{ endereco.cep }}</dd></div>
+    </dl>
+
+    <button class="danger" type="button" (click)="usarTokenInventado()">
+      Testar token inventado
+    </button>
+  </section>
+</main>
