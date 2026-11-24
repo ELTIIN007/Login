@@ -18,20 +18,26 @@ describe('AuthService', () => {
     TestBed.inject(HttpTestingController).verify();
   });
 
-  it('rejeita senha incorreta', () => {
-    expect(service.login('emily@email.com', 'errada')).toBe(false);
+  it('rejeita e-mail inválido', () => {
+    expect(service.login('email-invalido', 'senha123')).toBe(false);
   });
 
-  it('aceita login correto e cria token', () => {
-    expect(service.login('emily@email.com', '123456')).toBe(true);
+  it('rejeita senha curta', () => {
+    expect(service.login('torcedor@email.com', '123')).toBe(false);
+  });
+
+  it('aceita dados informados pelo usuário e cria token', () => {
+    expect(service.login('maria.silva@email.com', 'minhaSenha')).toBe(true);
     expect(service.isAuthenticated()).toBe(true);
-    expect(localStorage.getItem('auth_token')).toBe('token-valido-emily');
+    expect(localStorage.getItem('auth_token')).toBeTruthy();
+    expect(service.profile()?.name).toBe('Maria Silva');
   });
 
-  it('limpa token ao sair', () => {
-    service.login('emily@email.com', '123456');
+  it('limpa dados ao sair', () => {
+    service.login('torcedor@email.com', 'senha123');
     service.logout();
     expect(service.isAuthenticated()).toBe(false);
     expect(localStorage.getItem('auth_token')).toBeNull();
+    expect(localStorage.getItem('auth_profile')).toBeNull();
   });
 });

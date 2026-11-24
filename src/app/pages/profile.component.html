@@ -9,9 +9,9 @@
       <div>
         <p class="eyebrow">Ingressos disponíveis</p>
         <h1 *ngIf="auth.profile(); else loading">Olá, {{ auth.profile()?.name }}</h1>
-        <ng-template #loading><h1>Olá, Emily</h1></ng-template>
+        <ng-template #loading><h1>Olá, torcedor</h1></ng-template>
       </div>
-      <div class="fan-badge">TORCEDORA</div>
+      <div class="fan-badge">TORCEDOR(A)</div>
     </header>
 
     <div class="section-title">
@@ -62,7 +62,7 @@
 
     <h2>Entrega por CEP</h2>
     <div class="search-row">
-      <input [(ngModel)]="cep" name="cep" maxlength="9" placeholder="00000-000" aria-label="CEP" />
+      <input [(ngModel)]="cep" name="cep" maxlength="9" placeholder="Digite seu CEP" aria-label="CEP" />
       <button type="button" (click)="buscarCep()" [disabled]="loadingCep()">
         {{ loadingCep() ? 'Buscando...' : 'Buscar CEP' }}
       </button>

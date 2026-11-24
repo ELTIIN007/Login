@@ -4,7 +4,7 @@ Sistema demonstrativo de compra de ingressos para jogos de futebol desenvolvido 
 
 ## Funcionalidades
 
-- Login em `/entrar` com `emily@email.com` / `123456`
+- Login em `/entrar` com e-mail válido e senha com pelo menos 6 caracteres
 - Perfil e catálogo em `/perfil`
 - Seleção de jogo, quantidade e cálculo do total
 - Confirmação visual da compra

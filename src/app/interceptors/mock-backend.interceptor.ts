@@ -7,10 +7,11 @@ export const mockBackendInterceptor: HttpInterceptorFn = (request, next) => {
   }
 
   const authorization = request.headers.get('Authorization');
-  if (authorization === 'Bearer token-valido-emily') {
+  if (authorization?.startsWith('Bearer demo-')) {
+    const profile = localStorage.getItem('auth_profile');
     return of(new HttpResponse({
       status: 200,
-      body: { name: 'Emily', email: 'emily@email.com' }
+      body: profile ? JSON.parse(profile) : { name: 'Torcedor', email: '' }
     })).pipe(delay(250));
   }
 

@@ -6,16 +6,16 @@
 
     <form (ngSubmit)="entrar()">
       <label for="email">E-mail</label>
-      <input id="email" name="email" [(ngModel)]="email" type="email" autocomplete="username" />
+      <input id="email" name="email" [(ngModel)]="email" type="email" placeholder="seu@email.com" autocomplete="username" />
 
       <label for="password">Senha</label>
-      <input id="password" name="password" [(ngModel)]="password" type="password" autocomplete="current-password" />
+      <input id="password" name="password" [(ngModel)]="password" type="password" placeholder="Pelo menos 6 caracteres" minlength="6" autocomplete="new-password" />
 
       <p class="error" role="alert" *ngIf="error()">{{ error() }}</p>
 
       <button type="submit">Entrar e ver jogos</button>
     </form>
 
-    <p class="hint">Acesso demonstrativo: <strong>123456</strong></p>
+    <p class="hint">Use o seu próprio e-mail e crie uma senha.</p>
   </section>
 </main>
